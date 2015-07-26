@@ -2,13 +2,24 @@
 # Run download.R to put it there.
 # 0. read in the files
 
-train <- read.csv("UCI HAR Dataset/train/X_train.txt")
-test <- read.csv("UCI HAR Dataset/test/X_test.txt")
+train_X <- read.csv("UCI HAR Dataset/train/X_train.txt")
+train_X_transpose <- as.data.frame(t(train_X))
+train_y <- read.csv("UCI HAR Dataset/train/y_train.txt")
+train_subject <- read.csv("UCI HAR Dataset/train/subject_train.txt")
+
+test_X <- read.csv("UCI HAR Dataset/test/X_test.txt")
+test_X_transpose <- as.data.frame(t(test_X))
+test_y <- read.csv("UCI HAR Dataset/test/y_test.txt")
+test_subject <- read.csv("UCI HAR Dataset/test/subject_test.txt")
 
 # 1.  Merges the training and the test sets to create one data set.
+# library(plyr)
 
-merged <- merge(train,test, all=TRUE)
+data_train <- list(train_X_transpose, train_y, train_subject)
+merged_train <- head(rbind.fill(data))
 
+data_test <- list(test_X_transpose, test_y, test_subject)
+merged_test <- head(rbind.fill(data))
 
 # 2. Extracts only the measurements on the mean and standard deviation for each
 # measurement.
